@@ -51,7 +51,7 @@ export const CurrentTicket = ({ ticket, onBack }: CurrentTicketProps) => {
       if (!message) return;
 
       // get client name from first message
-      const clientName = messages?.[0]?.author_name ?? ticket.client_email;
+      const clientName = messages?.[0]?.author_name ?? ticket.client?.email;
 
       await api.post(`/tickets/${ticket.public_id}/messages`, {
         message,
@@ -90,10 +90,10 @@ export const CurrentTicket = ({ ticket, onBack }: CurrentTicketProps) => {
             <div className="flex items-center justify-between">
               <strong>{message.author_name}</strong>
               <span className="text-sm opacity-50">
-                {formatDate(message.created_at)}
+                {formatDate(message.created_at as string)}
               </span>
             </div>
-            <p>{parse(message.message)}</p>
+            <p>{parse(message.content)}</p>
           </div>
         ))}
       </div>
