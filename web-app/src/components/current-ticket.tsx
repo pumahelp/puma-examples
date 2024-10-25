@@ -51,7 +51,7 @@ export const CurrentTicket = ({ ticket, onBack }: CurrentTicketProps) => {
       if (!message) return;
 
       // get client name from first message
-      const clientName = messages?.[0]?.author_name ?? ticket.client?.email;
+      const clientName = messages?.[messages.length - 1]?.author_name ?? ticket.client?.email;
 
       await api.post(`/tickets/${ticket.public_id}/messages`, {
         message,
