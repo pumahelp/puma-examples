@@ -31,7 +31,7 @@ export async function POST(
   const body = await request.json() as RequestBody;
 
   await pumaAPI.post<ApiResponse<TicketMessage>>("ticket/message", {
-    content: body.message,
+    message: body.message,
     ticket_public_id: ticketId,
     from_client: true,
     author_name: body.name,
