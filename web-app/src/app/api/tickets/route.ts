@@ -13,18 +13,22 @@ export async function POST(request: Request) {
   const body = await request.json() as RequestBody;
 
   // create client
-  await pumaAPI.post("/client", {
-    name: body.name,
-    email: body.email
-  })
+  try {
+    await pumaAPI.post("/client", {
+      name: body.name,
+      email: body.email
+    })
+  } catch {
+    console.log("Client already exists");
+  }
 
   // create ticket
   const { data: ticketResponse } = await pumaAPI.post<ApiResponse<Ticket>>("/ticket", {
     client_email: body.email,
-    tags: ["bug"],
+    tags: ["example"],
     subject: body.subject,
     comment: {
-      message: body.description,
+      content: body.description,
       author_name: body.name,
       from_client: true
     }
